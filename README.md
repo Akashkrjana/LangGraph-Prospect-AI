@@ -15,9 +15,11 @@ This project is an end-to-end autonomous agent system that discovers, enriches, 
 
 The application follows a conditional workflow:
 
+```bash
 `[Prospect Search]` -> `[Enrichment]` -> `[Scoring]`
 * **If Score is High** -> `[Outreach Content]` -> `[Send Email]` -> `[Track Response]` -> `[Feedback Trainer]` -> `[End]`
 * **If Score is Low** -> `[End]`
+```
 
 ## 🛠️ Tech Stack
 
@@ -31,7 +33,29 @@ The application follows a conditional workflow:
 | Config & Logging  | Google Sheets API       | Used by the feedback loop to log recommendations. |
 
 ## 📂 Project Structure
-LangGraphProspectAI/ ├── agents/ │ ├── init.py │ ├── abstract_enrichment_agent.py │ ├── feedback_trainer_agent.py │ ├── outreach_content_agent.py │ ├── outreach_executor_agent.py │ ├── prospect_search_agent.py │ ├── response_tracker_agent.py │ └── scoring_agent.py ├── workflows/ │ ├── workflow.json │ └── validator.py ├── .env.example ├── .gitignore ├── credentials.json ├── langgraph_builder.py ├── README.md └── requirements.txt
+
+```bash
+LangGraphProspectAI/
+├── .env
+├── .env.example
+├── .gitignore
+├── credentials.json
+├── langgraph_builder.py
+├── README.md
+├── requirements.txt
+├── agents/
+│   ├── __init__.py
+│   ├── abstract_enrichment_agent.py
+│   ├── feedback_trainer_agent.py
+│   ├── outreach_content_agent.py
+│   ├── outreach_executor_agent.py
+│   ├── prospect_search_agent.py
+│   ├── response_tracker_agent.py
+│   └── scoring_agent.py
+└── workflows/
+    ├── validator.py
+    └── workflow.json
+```
 
 ## ⚙️ Setup and Installation
 
@@ -43,12 +67,14 @@ Follow these steps to get the project running on your local machine.
 
 ### 2. Clone the Repository
 ```bash
-git clone [https://github.com/YourUsername/LangGraph-Prospect-AI.git](https://github.com/YourUsername/LangGraph-Prospect-AI.git)
+git clone [https://github.com/Akashkrjana/LangGraph-Prospect-AI.git]
 cd LangGraph-Prospect-AI
+```
 
-3. Set Up the Environment
+### 3. Set Up the Environment
+
 Create and activate a Python virtual environment.
-
+```bash
 # Create the environment
 python -m venv venv
 
@@ -57,40 +83,45 @@ python -m venv venv
 
 # Activate on macOS/Linux
 source venv/bin/activate
-
-4. Install Dependencies
+```
+### 4. Install Dependencies
 Install all the required Python libraries.
-
+```bash
 pip install -r requirements.txt
+```
+### 5. Configure API Keys (.env)
+1. Make a copy of the example environment file: copy .env.example .env (on Windows) or cp .env.example .env (on Mac/Linux).
 
-5. Configure API Keys (.env)
-Make a copy of the example environment file: copy .env.example .env (on Windows) or cp .env.example .env (on Mac/Linux).
+2. Open the new .env file and replace the placeholder values with your actual secret keys from OpenAI, SendGrid, Abstract API, etc.
 
-Open the new .env file and replace the placeholder values with your actual secret keys from OpenAI, SendGrid, Abstract API, etc.
+### 6. Configure Google Sheets (credentials.json)
+1. Follow the Google Cloud documentation to create a Service Account.
 
-6. Configure Google Sheets (credentials.json)
-Follow the Google Cloud documentation to create a Service Account.
+2. Enable the Google Sheets API and Google Drive API.
 
-Enable the Google Sheets API and Google Drive API.
+3. Download the JSON key for your service account and save it as credentials.json in the project root.
 
-Download the JSON key for your service account and save it as credentials.json in the project root.
+4. Open credentials.json, copy the client_email, and share your Google Sheet with that email, giving it Editor permissions.
 
-Open credentials.json, copy the client_email, and share your Google Sheet with that email, giving it Editor permissions.
-
-🚀 How to Run the Application
+## 🚀 How to Run the Application
 Once your setup is complete, you can run the entire workflow.
 
-(Optional) Validate the Workflow:
+1. (Optional) Validate the Workflow:
 
+```bash
 python workflows/validator.py
+```
 
-Run the Main Application:
+2. Run the Main Application:
 
+```bash
 python langgraph_builder.py
+```
 
-🔧 How to Customize and Extend
+## 🔧 How to Customize and Extend
 The primary control panel is the workflows/workflow.json file. To change the target market, simply edit the config block for the prospect_search step. To add a new agent, create its file, register it in agents/__init__.py, and add a new step for it in workflow.json.
 
+```bash
 ---
 ## How to Paste Correctly
 
@@ -99,3 +130,5 @@ The primary control panel is the workflows/workflow.json file. To change the tar
 3.  **Delete everything** currently in the file.
 4.  **Paste** the new, clean content.
 5.  Open the **Markdown Preview** (`Ctrl+Shift+V`) to confirm that it now has the proper headings, tables, and lists.
+```
+
