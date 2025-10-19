@@ -1,0 +1,16 @@
+# Core LangGraph & LangChain Framework
+langchain
+langgraph
+langchain_openai
+
+# Utility for loading environment variables from a .env file
+python-dotenv
+
+# For making general HTTP API requests to data sources
+requests
+
+# OpenAI client library for LLM-powered agents
+openai
+
+# For validating the workflow.json schema
+jsonschema

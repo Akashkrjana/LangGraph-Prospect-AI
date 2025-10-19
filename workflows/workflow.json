@@ -1,0 +1,72 @@
+{
+  "workflow_name": "Outbound Lead Generation",
+  "description": "End-to-end AI agent workflow to find, contact, and qualify B2B leads.",
+  "steps": [
+    {
+      "id": "prospect_search",
+      "agent": "ProspectSearchAgent",
+      "config": {
+        "industry": "SaaS",
+        "location": "USA",
+        "employee_count": { "min": 100, "max": 1000 },
+        "revenue": { "min": 20000000, "max": 200000000},
+        "signals": ["recent_funding", "hiring_for_sales"]
+      },
+      "tools": ["ApolloAPI", "ClayAPI"],
+      "output_key": "leads"
+    },
+    {
+      "id": "enrichment",
+      "agent": "AbstractEnrichmentAgent",
+      "config": {},
+      "tools": ["AbstractAPI"],
+      "output_key": "enriched_leads"
+    },
+    {
+      "id": "scoring",
+      "agent": "ScoringAgent",
+      "config": {
+        "scoring_criteria": {
+          "role_keywords": {
+            "30": ["vp", "director", "head of", "c-level", "founder"],
+            "20": ["manager"]
+          },
+          "desired_tech": ["Salesforce", "Outreach.io", "HubSpot", "AWS"]
+        }
+      },
+      "tools": [],
+      "output_key": "ranked_leads"
+    },
+    {
+      "id": "outreach_content",
+      "agent": "OutreachContentAgent",
+      "config": {
+        "persona": "SDR at Analytos.ai",
+        "tone": "friendly yet professional"
+      },
+      "tools": ["OpenAI"],
+      "output_key": "messages"
+    },
+    {
+      "id": "send",
+      "agent": "OutreachExecutorAgent",
+      "config": {},
+      "tools": ["SendGrid"],
+      "output_key": "sent_status"
+    },
+    {
+      "id": "response_tracking",
+      "agent": "ResponseTrackerAgent",
+      "config": {},
+      "tools": ["ApolloAPI"],
+      "output_key": "responses"
+    },
+    {
+      "id": "feedback_trainer",
+      "agent": "FeedbackTrainerAgent",
+      "config": {},
+      "tools": ["GoogleSheets", "OpenAI"],
+      "output_key": "recommendations"
+    }
+  ]
+}

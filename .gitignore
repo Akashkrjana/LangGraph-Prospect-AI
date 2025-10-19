@@ -1,0 +1,10 @@
+# Ignore the virtual environment folder
+/venv/
+
+# Ignore secret files
+/.env
+/credentials.json
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
