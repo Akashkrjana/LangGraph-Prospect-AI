@@ -83,12 +83,11 @@ if __name__ == "__main__":
         workflow.add_node(step["id"], node_function)
     print(f"✅ All {len(steps)} nodes have been added to the graph.")
 
-    # --- UPDATED: Connect Edges Sequentially UNTIL the decision point ---
+    # ---Connect Edges Sequentially UNTIL the decision point ---
     workflow.set_entry_point("prospect_search")
     workflow.add_edge("prospect_search", "enrichment")
     workflow.add_edge("enrichment", "scoring")
 
-    # --- NEW: Add the Conditional Edge ---
     # After the 'scoring' node, we use our routing function to decide where to go next.
     workflow.add_conditional_edges(
         "scoring",
